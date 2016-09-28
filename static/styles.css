@@ -1,0 +1,53 @@
+body {
+    font-family: 'Lato', sans-serif;
+    color: #2d3c49;
+    font-weight: 300;
+}
+
+
+/* Used to scale the title text */
+@media(max-width: 590px) {
+  h1 {
+    font-size: 24px;
+  }
+  h3 {
+    font-size: 14px;
+  }
+}
+
+@media(max-width: 410px) {
+  h1 {
+    font-size: 18px;
+  }
+  h3 {
+    font-size: 10px;
+  }
+}
+
+
+.rule {
+    height: 3px;
+    border: 0;
+    background: #7d97ad;
+}
+
+.featured-work {
+    color: #7d97ad;
+}
+
+@media (min-width: 768px) {
+  /* makes images of different heights occupt same height in column. */
+  .work-image {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 90%;
+  }
+  .work-image img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+}

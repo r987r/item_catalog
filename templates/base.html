@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href={{ url_for('static', filename='bootstrap.min.css') }}>
+    <link rel="stylesheet" href={{ url_for('static', filename='styles.css') }}>
+    <title>Sports Catalog</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="row">
+        <div class="col-xs-4"><img class="img-responsive" src="./images/udacity.png" alt="udacity logo"></div>
+        <div class="col-xs-8 text-uppercase text-left pull-right">
+          <h1>Sports Catalog</h1>
+        </div>
+      </header>
+      <div id="content">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </body>
+</html>

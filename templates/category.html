@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}    
+  {% for item_row in items | batch(2, '&nbsp;') %}
+  <section class="row">
+    {% for item in items %}  
+      {% include 'item.html' %}
+    {% endfor %}
+  </section>
+  {% endfor %}
+{% endblock %}
+

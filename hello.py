@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from entries import Base, Category, Item
@@ -22,6 +22,10 @@ def HelloWorld():
 def newItem(category_id):
     return "new item..."
 
+@app.route('/category/<int:category_id>/<int:item_id>/view/')
+def viewItem(category_id, item_id):
+    return "view item..."
+
 @app.route('/category/<int:category_id>/<int:item_id>/delete/')
 def deleteItem(category_id, item_id):
     return "delete item..."
@@ -32,15 +36,8 @@ def editItem(category_id, item_id):
 
 @app.route('/category/<int:category_id>/')
 def ListItems(category_id):
-    output = ''
-    
     items = session.query(Item).filter_by(category_id=category_id)
-    for i in items:
-        output += i.name
-        output += '<br>'
-    return output
-
-
+    return render_template('category.html', items=items)
 
 if __name__ == '__main__':
     app.debug = True
