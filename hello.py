@@ -15,12 +15,20 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 @app.route('/')
-def HelloWorld():
+def Main():
     categories = session.query(Category).all()
-    output = ''
-    for category in categories:
-        output += category.name + " " + str(category.id)
-    return output
+    return render_template('main.html', categories=categories)
+
+@app.route('/category/new/', methods=['GET','POST'])
+def newCategory():
+    if request.method == 'POST':
+        newItem = Category(name=request.form['category_name'])
+        session.add(newItem)
+        session.commit()
+        return redirect(url_for('Main'))
+    else:
+        return render_template('newcategory.html')
+
 
 def handleImage(public_url, category_id, item_id):
     # Handle storing images on server and return path on server to caller.
@@ -45,7 +53,6 @@ def newItem(category_id):
         session.add(newItem)
         session.flush() # Needed to get id for the new item.
         newItem.img_url = handleImage(request.form['img_url'], category_id, newItem.id)
-        
         session.commit()
         return redirect(url_for('ListItems', category_id=category_id))
     else:
