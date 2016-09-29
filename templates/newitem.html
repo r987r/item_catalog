@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <article class="add-item">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>Add Item</h2>
+      </div>
+    </div>
+    <form method="post">
+      <div class="form-group row">
+        <label for="item_name" class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="item_name" name="item_name">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="description" class="col-sm-3 col-form-label">Description</label>
+        <div class="col-sm-9">
+          <textarea class="form_control" id="description" name="description" rows=4></textarea>
+        </div>
+      </div> 
+      <div class="form-group row">
+        <label for="photo_url" class="col-sm-3 col-form-label">Photo URL</label>
+        <div class="col-sm-9">
+          <input type="url" class="form-control" id="img_url" name="img_url">
+        </div>
+      </div>
+      <input type="submit" class="btn btn-primary" name="add_item" value="Add Item">
+      <input type="submit" class="btn" name="cancel_item" value="Cancel">
+    </form>
+  </article>
+{% endblock %}
+

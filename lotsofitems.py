@@ -31,28 +31,8 @@ category = Category(name="Soccer")
 session.add(category)
 session.commit()
 
-item0 = Item(name="Soccer ball", description="basic soccer ball",
-                     category=category)
-session.add(item0)
-session.commit()
-
-item1 = Item(name="Cleats", description="cleatzzz",
-                     category=category)
-session.add(item1)
-session.commit()
-
 category1 = Category(name="Baseball")
 
 session.add(category1)
-session.commit()
-
-item2 = Item(name="baseball", description="basic base ball",
-                     category=category1)
-session.add(item2)
-session.commit()
-
-item3 = Item(name="Cleats", description="cleatzzz",
-                     category=category1)
-session.add(item3)
 session.commit()
 

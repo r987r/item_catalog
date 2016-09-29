@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}    
-  {% for item_row in items | batch(2, '&nbsp;') %}
+  {% for item_row in items | batch(2) %}
   <section class="row">
-    {% for item in items %}  
+    {% for item in item_row %}  
       {% include 'item.html' %}
     {% endfor %}
   </section>
