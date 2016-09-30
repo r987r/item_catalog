@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <article class="add-item">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>Delete Item</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <p>Are you sure you want to delete {{item.category.name}}--&gt{{item.name}}?</p>
+      </div>
+    </div>
+    <form method="post">
+      <input type="submit" class="btn btn-primary" name="submit" value="Delete Item">
+      <input type="submit" class="btn" name="cancel" value="Cancel">
+    </form>
+  </article>
+{% endblock %}
+

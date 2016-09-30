@@ -17,7 +17,8 @@ session = DBSession()
 @app.route('/')
 def Main():
     categories = session.query(Category).all()
-    return render_template('main.html', categories=categories)
+    latest_items = session.query(Item).order_by(Item.id.desc()).limit(3)
+    return render_template('main.html', categories=categories, latest_items=latest_items)
 
 @app.route('/category/new/', methods=['GET','POST'])
 def newCategory():
@@ -29,7 +30,6 @@ def newCategory():
     else:
         return render_template('newcategory.html')
 
-
 def handleImage(public_url, category_id, item_id):
     # Handle storing images on server and return path on server to caller.
     # TODO: Throw an error when bad image is seen (url or size)
@@ -38,7 +38,13 @@ def handleImage(public_url, category_id, item_id):
     if not os.path.isdir(save_path):
         os.makedirs(save_path)
     save_path = "%s/i%d" % (save_path, item_id)
-    os.makedirs(save_path)
+    if not os.path.isdir(save_path):
+        os.makedirs(save_path)
+    for the_file in os.listdir(save_path):
+        # Remove any files in this directory incase of an edit.
+        file_path = os.path.join(save_path, the_file)
+        if os.path.isfile(file_path):
+            os.unlink(file_path)
     save_path = "images/c%d/i%d/img%s" % (category_id, item_id, extension)
     urllib.urlretrieve(public_url, "./static/" + save_path)
     return save_path
@@ -56,24 +62,45 @@ def newItem(category_id):
         session.commit()
         return redirect(url_for('ListItems', category_id=category_id))
     else:
-        return render_template('newitem.html')
+        return render_template('newedititem.html')
+
+@app.route('/category/<int:category_id>/<int:item_id>/edit/', methods=['GET','POST'])
+def editItem(category_id, item_id):
+    editItem = session.query(Item).get(item_id)
+    if request.method == 'POST':
+        editItem.name = request.form['item_name']
+        editItem.description = request.form['description']
+        img_url = request.form['img_url']
+        if(img_url != ""):
+           editItem.img_url = handleImage(img_url, category_id, item_id)
+        session.commit()
+        return redirect(url_for('ListItems', category_id=category_id))
+    else:
+        return render_template('edititem.html', item=editItem)
+
 
 @app.route('/category/<int:category_id>/<int:item_id>/view/')
 def viewItem(category_id, item_id):
-    return "view item..."
+    viewItem = session.query(Item).get(item_id)
+    return render_template('viewitem.html', item=viewItem)
 
-@app.route('/category/<int:category_id>/<int:item_id>/delete/')
+@app.route('/category/<int:category_id>/<int:item_id>/delete/', methods=['GET','POST'])
 def deleteItem(category_id, item_id):
-    return "delete item..."
+    deleteItem = session.query(Item).get(item_id)
+    if request.method == 'POST':
+        session.delete(deleteItem)
+        session.commit()
+        # Remove the image from the filesystem
+        return redirect(url_for('ListItems', category_id=category_id))
+    else:
+        return render_template('deleteitem.html', item=deleteItem)
 
-@app.route('/category/<int:category_id>/<int:item_id>/edit/')
-def editItem(category_id, item_id):
-    return "edit item..."
 
 @app.route('/category/<int:category_id>/')
 def ListItems(category_id):
     items = session.query(Item).filter_by(category_id=category_id)
-    return render_template('category.html', items=items)
+    category = session.query(Category).get(category_id)
+    return render_template('category.html', items=items, category=category.name)
 
 if __name__ == '__main__':
     app.debug = True

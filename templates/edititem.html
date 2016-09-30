@@ -4,29 +4,30 @@
   <article class="add-item">
     <div class="row">
       <div class="col-sm-12">
-        <h2>Add Item</h2>
+        <h2>Edit Item</h2>
       </div>
     </div>
     <form method="post">
       <div class="form-group row">
         <label for="item_name" class="col-sm-3 col-form-label">Name</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="item_name" name="item_name">
+          <input type="text" class="form-control" id="item_name" name="item_name" value="{{item.name}}">
         </div>
       </div>
       <div class="form-group row">
         <label for="description" class="col-sm-3 col-form-label">Description</label>
         <div class="col-sm-9">
-          <textarea class="form_control" id="description" name="description" rows=4></textarea>
+          <textarea class="form_control" id="description" name="description" rows=4>{{item.description}}</textarea>
         </div>
       </div> 
       <div class="form-group row">
-        <label for="photo_url" class="col-sm-3 col-form-label">Photo URL</label>
+        <label for="photo_url" class="col-sm-3 col-form-label">New Photo URL</label>
         <div class="col-sm-9">
-          <input type="url" class="form-control" id="img_url" name="img_url" value="">
+          <input type="url" class="form-control" id="img_url" name="img_url">
+          <small id="photo_url_help" class="text-muted">Leave blank to keep old image</small>
         </div>
       </div>
-      <input type="submit" class="btn btn-primary" name="submit" value="{{page_type}} Item">
+      <input type="submit" class="btn btn-primary" name="submit" value="Edit Item">
       <input type="submit" class="btn" name="cancel" value="Cancel">
     </form>
   </article>
