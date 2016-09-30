@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from entries import Base, Category, Item
@@ -13,6 +13,22 @@ Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+@app.route('/category/JSON')
+def categoryJSON():
+    categories = session.query(Category).all()
+    return jsonify(Categories=[i.serialize for i in categories])
+
+@app.route('/category/<int:category_id>/JSON')
+def categoryItemsJSON(category_id):
+    items = session.query(Item).filter_by(category_id=category_id)
+    return jsonify(CategoryItems=[i.serialize for i in items])
+
+@app.route('/category/<int:category_id>/<int:item_id>/JSON/')
+def itemsJSON(category_id, item_id):
+    viewItem = session.query(Item).get(item_id)
+    return jsonify(item=viewItem.serialize)
+
 
 @app.route('/')
 def Main():
@@ -96,7 +112,7 @@ def deleteItem(category_id, item_id):
         return render_template('deleteitem.html', item=deleteItem)
 
 
-@app.route('/category/<int:category_id>/')
+@app.route('/category/<int:category_id>/list')
 def ListItems(category_id):
     items = session.query(Item).filter_by(category_id=category_id)
     category = session.query(Category).get(category_id)
