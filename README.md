@@ -8,3 +8,6 @@ Run
 3) Bad image upload error and max file size...
 4) Look back at styling for invalid inputs on new and edits
 	Possibly use flash messages
+5) Add Cancel functionality
+6) Fix JSON for all
+7) Split up main code into different files
