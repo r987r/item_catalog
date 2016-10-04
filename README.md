@@ -10,4 +10,3 @@ Run
 	Possibly use flash messages
 5) Add Cancel functionality
 6) Fix JSON for all
-7) Split up main code into different files

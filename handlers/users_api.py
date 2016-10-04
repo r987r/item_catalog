@@ -26,8 +26,17 @@ def getUserID(email):
     except:
         return None
 
-def getUserID():
-    return login_session['user_id']
+def getCurrentUser():
+    if 'user_id' in login_session:
+        return login_session['user_id']
+    else:
+        return None
+
+def validUserPermission(user_id):
+    if getCurrentUser() == user_id:
+        return True
+    else:
+        return False
 
 # Create anti-forgery state token
 @users_api.route('/login')

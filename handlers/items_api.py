@@ -2,7 +2,8 @@ import os
 import urllib
 
 from flask import Flask, Blueprint, render_template, request, redirect, url_for
-from database import session, Item
+from database import session, Item, User, Category
+from users_api import validUserPermission
 
 items_api = Blueprint('items_api', __name__)
 
@@ -27,12 +28,15 @@ def handleImage(public_url, category_id, item_id):
 
 @items_api.route('/category/<int:category_id>/new/', methods=['GET','POST'])
 def newItem(category_id):
+    category = session.query(Category).get(category_id)
+    if not validUserPermission(category.user.id):
+        return redirect(url_for('category_api.ListItems', category_id=category_id))
     if request.method == 'POST':
-        newItem = Item(name=request.form['item_name'],
-                        description= request.form['description'],
+        newItem = Item(name = request.form['item_name'],
+                        description = request.form['description'],
                         img_url = "",
                         category_id=category_id)
-        session.new(newItem)
+        session.add(newItem)
         session.flush() # Needed to get id for the new item.
         newItem.img_url = handleImage(request.form['img_url'], category_id, newItem.id)
         session.commit()
@@ -43,6 +47,8 @@ def newItem(category_id):
 @items_api.route('/category/<int:category_id>/<int:item_id>/edit/', methods=['GET','POST'])
 def editItem(category_id, item_id):
     editItem = session.query(Item).get(item_id)
+    if not validUserPermission(editItem.category.user.id):
+        return redirect(url_for('items_api.viewItem', category_id=category_id, item_id=item_id))
     if request.method == 'POST':
         editItem.name = request.form['item_name']
         editItem.description = request.form['description']
@@ -50,7 +56,7 @@ def editItem(category_id, item_id):
         if(img_url != ""):
            editItem.img_url = handleImage(img_url, category_id, item_id)
         session.commit()
-        return redirect(url_for('category_api.ListItems', category_id=category_id))
+        return redirect(url_for('items_api.viewItem', category_id=category_id, item_id=item_id))
     else:
         return render_template('edititem.html', item=editItem)
 
@@ -63,6 +69,8 @@ def viewItem(category_id, item_id):
 @items_api.route('/category/<int:category_id>/<int:item_id>/delete/', methods=['GET','POST'])
 def deleteItem(category_id, item_id):
     deleteItem = session.query(Item).get(item_id)
+    if not validUserPermission(deleteItem.category.user.id):
+        return redirect(url_for('category_api.ListItems', category_id=category_id))
     if request.method == 'POST':
         session.delete(deleteItem)
         session.commit()
