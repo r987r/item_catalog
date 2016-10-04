@@ -9,6 +9,7 @@ from json_api import json_api
 from items_api import items_api
 from category_api import category_api
 from users_api import users_api
+from gconnect_api import gconnect_api
 
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ app.register_blueprint(json_api)
 app.register_blueprint(items_api)
 app.register_blueprint(category_api)
 app.register_blueprint(users_api)
+app.register_blueprint(gconnect_api)
 
 @app.route('/')
 @app.route('/index')
