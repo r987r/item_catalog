@@ -3,7 +3,12 @@
 {% block content %}    
   <div class="row">
     <div class="col-sm-12">
-      <h2>{{category}} Items</h2>
+      <h2>{{category.name}} Items</h2>
+      {% if usersCategory %}
+      <p><a href={{ url_for('items_api.newItem', category_id=category.id) }} >new item</a></p>
+      <p><a href={{ url_for('category_api.editCategory', category_id=category.id) }} >edit</a></p>
+      <p><a href={{ url_for('category_api.deleteCategory', category_id=category.id) }} >delete</a></p>
+      {% endif %}
     </div>
   </div>
   {% for item_row in items | batch(2) %}
@@ -14,7 +19,7 @@
           {% set img_url = url_for('static', filename = item.img_url) %}
           <img class="img-responsive center-block" src="{{img_url}}" alt="{{item.name}}">
         </div>
-        <h3 class="text-center"><a href="{{ url_for('items_api.viewItem', category_id=item.category.id, item_id=item.id)  }}">{{item.name}}</a></h3>
+        <h3 class="text-center"><a href="{{ url_for('items_api.viewItem', category_id=item.category.id, item_id=item.id) }}">{{item.name}}</a></h3>
       </article>
     {% endfor %}
   </section>

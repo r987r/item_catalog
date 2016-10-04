@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <article class="delete-item">
+  <article class="delete-category">
     <div class="row">
       <div class="col-sm-12">
-        <h2>Delete Item</h2>
+        <h2>Delete Category</h2>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <p>Are you sure you want to delete {{item.category.name}}--&gt{{item.name}}?</p>
+        <p>Are you sure you want to delete {{category.name}}? This will remove all items in category also.</p>
       </div>
     </div>
     <form method="post">
-      <input type="submit" class="btn btn-warning" name="submit" value="Delete Item">
+      <input type="submit" class="btn btn-warning" name="submit" value="Delete Category">
       <input type="submit" class="btn" name="cancel" value="Cancel">
     </form>
   </article>

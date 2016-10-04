@@ -2,8 +2,9 @@ import sys
 sys.path.insert(0, sys.path[0] + '/models')
 sys.path.insert(0, sys.path[1] + '/handlers')
 
-from flask import Flask, render_template
+from flask import Flask
 from database import session, Category, Item
+from base import render_template
 
 from json_api import json_api
 from items_api import items_api
@@ -22,9 +23,8 @@ app.register_blueprint(gconnect_api)
 @app.route('/')
 @app.route('/index')
 def Main():
-    categories = session.query(Category).all()
     latest_items = session.query(Item).order_by(Item.id.desc()).limit(3)
-    return render_template('main.html', categories=categories, latest_items=latest_items)
+    return render_template('main.html', latest_items=latest_items)
 
 if __name__ == '__main__':
     app.secret_key = 'super_duper_secret_key'

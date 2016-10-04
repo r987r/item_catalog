@@ -38,7 +38,7 @@ def validUserPermission(user_id):
     else:
         return False
 
-# Create anti-forgery state token
+# Create anti-forgery state token and display login.
 @users_api.route('/login')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
