@@ -14,7 +14,7 @@
           {% set img_url = url_for('static', filename = item.img_url) %}
           <img class="img-responsive center-block" src="{{img_url}}" alt="{{item.name}}">
         </div>
-        <h3 class="text-center"><a href="{{ url_for('viewItem', category_id=item.category.id, item_id=item.id)  }}">{{item.name}}</a></h3>
+        <h3 class="text-center"><a href="{{ url_for('items_api.viewItem', category_id=item.category.id, item_id=item.id)  }}">{{item.name}}</a></h3>
       </article>
     {% endfor %}
   </section>

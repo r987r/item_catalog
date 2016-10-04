@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <article class="edit-category">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>Edit Category</h2>
+      </div>
+    </div>
+    <form method="post">
+      <div class="form-group row">
+        <label for="category_name" class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="category_name" name="category_name" value="{{category.name}}">
+        </div>
+      </div>
+      <input type="submit" class="btn btn-primary" name="submit" value="Edit Category">
+      <input type="submit" class="btn" name="cancel" value="Cancel">
+    </form>
+  </article>
+{% endblock %}
+
