@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, request, render_template, flash
+from flask import Flask, Blueprint, request, flash
 from users_api import login_session
 
 from oauth2client.client import flow_from_clientsecrets
@@ -125,7 +125,6 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     else:
-    
         response = make_response(json.dumps('Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response
