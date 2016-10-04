@@ -3,13 +3,14 @@ import urllib
 
 from flask import Flask, Blueprint, render_template, request, redirect, url_for
 from database import session, Category, Item
+from users_api import getUserID
 
 category_api = Blueprint('category_api', __name__)
 
 @category_api.route('/category/new/', methods=['GET','POST'])
 def newCategory():
     if request.method == 'POST':
-        newCategory = Category(name=request.form['category_name'])
+        newCategory = Category(name=request.form['category_name'], user_id=getUserID())
         session.add(newCategory)
         session.commit()
         return redirect(url_for('Main'))

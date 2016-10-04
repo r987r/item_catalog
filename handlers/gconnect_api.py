@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, request, flash
-from users_api import login_session
+from users_api import login_session, getUserID, createUser
 
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
@@ -87,6 +87,12 @@ def gconnect():
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
 
+    # see if user exists, if it doesn't make a new one
+    user_id = getUserID(login_session['email'])
+    if not user_id:
+        user_id = createUser(login_session)
+    login_session['user_id'] = user_id
+
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
@@ -119,6 +125,7 @@ def gdisconnect():
         del login_session['access_token'] 
         del login_session['gplus_id']
         del login_session['username']
+        del login_session['user_id']
         del login_session['email']
         del login_session['picture']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
