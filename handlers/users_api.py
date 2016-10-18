@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template
+from flask import Flask, Blueprint, render_template, redirect, url_for
 from flask import session as login_session
 from database import session, User
 import random
@@ -45,4 +45,8 @@ def showLogin():
                     for x in xrange(32))
     login_session['state'] = state
     return render_template('login.html', STATE=state)
+
+@users_api.route('/logout')
+def showLogout():
+    return redirect(url_for('gconnect_api.gdisconnect'))
 

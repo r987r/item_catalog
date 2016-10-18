@@ -9,19 +9,34 @@
 {% endblock %}
 
 {% block content %}
-  <div id="signInButton">
-    <span class="g-signin"
-      data-scope="openid email"
-      data-clientid="395127225721-at9a4qdclu4gem5vinrgbdo21rs5beb5.apps.googleusercontent.com"
-      data-redirecturi="postmessage"
-      data-accesstype="offline"
-      data-cookiepolicy="single_host_origin"
-      data-callback="signInCallback"
-      data-approvalprompt="force">
-    </span>
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Sign In</h2>
+      <p>Please Sign in with one of the providers below</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="signInButton">
+        <span class="g-signin"
+          data-scope="openid email"
+          data-clientid="395127225721-at9a4qdclu4gem5vinrgbdo21rs5beb5.apps.googleusercontent.com"
+          data-redirecturi="postmessage"
+          data-accesstype="offline"
+          data-cookiepolicy="single_host_origin"
+          data-callback="signInCallback"
+          data-approvalprompt="force">
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="result"></div>
+    </div>
   </div>
 
-  <div id="result"></div>
+
 
 {% endblock %}
 

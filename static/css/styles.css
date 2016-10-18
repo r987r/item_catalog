@@ -4,7 +4,6 @@ body {
     font-weight: 300;
 }
 
-
 /* Used to scale the title text */
 @media(max-width: 590px) {
   h1 {

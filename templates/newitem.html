@@ -27,7 +27,7 @@
         </div>
       </div>
       <input type="submit" class="btn btn-primary" name="submit" value="Add Item">
-      <input type="submit" class="btn" name="cancel" value="Cancel">
+      <p class="btn btn-secondary"><a href={{ url_for('category_api.ListItems', category_id=category.id) }}>Cancel</a></p>
     </form>
   </article>
 {% endblock %}

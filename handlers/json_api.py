@@ -5,13 +5,6 @@ import json
 
 json_api = Blueprint('json_api', __name__)
 
-@json_api.route('/JSON')
-def allJSON():
-    categories = session.query(Category).all()
-    json_obj = () 
-    for i in categories:
-       json_obj += categoryItemsJSON(i.id)
-    return jsonify(Categories=json_obj)
 
 @json_api.route('/category/JSON')
 def categoryJSON():

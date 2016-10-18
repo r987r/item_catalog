@@ -3,11 +3,13 @@
 {% block content %}    
   <div class="row">
     <div class="col-sm-12">
-      <h2>{{category.name}} Items</h2>
+      <span class="h2">{{category.name}} Items</span>
       {% if usersCategory %}
-      <p><a href={{ url_for('items_api.newItem', category_id=category.id) }} >new item</a></p>
-      <p><a href={{ url_for('category_api.editCategory', category_id=category.id) }} >edit</a></p>
-      <p><a href={{ url_for('category_api.deleteCategory', category_id=category.id) }} >delete</a></p>
+        <span>
+          <a href={{ url_for('category_api.editCategory', category_id=category.id) }} >edit</a>
+          <a href={{ url_for('category_api.deleteCategory', category_id=category.id) }} >delete</a>
+        </span>
+        <p><a href={{ url_for('items_api.newItem', category_id=category.id) }} >new item</a></p>
       {% endif %}
     </div>
   </div>

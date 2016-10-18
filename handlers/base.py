@@ -4,6 +4,6 @@ from users_api import getCurrentUser, validUserPermission
 
 def render_template(page, **kw):
     kw["categories"] = session.query(Category).all()
-    kw["loggedIn"] = getCurrentUser is not None
+    kw["loggedIn"] = getCurrentUser() != None
     return render_template_flask(page,**kw)
     

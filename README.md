@@ -20,18 +20,16 @@ Cleaning Database
 ---
 1) Run these commands:
 	rm itemcatalog.db
-	rm -rf static/images/*
+	rm -rf static/images/c*
 
 TODO
 ---
+1) Look if user uploads bad image or if its above a max file size
 1) Remove images when doing delete Items
 2) Find a way to customize json object name
-3) Bad image upload error and max file size...
 4) Look back at styling for invalid inputs on new and edits
 	Possibly use flash messages
-5) Add Cancel functionality
 6) Fix JSON for all
-7) Add delete category item
 8) Format everything better
 9)
 

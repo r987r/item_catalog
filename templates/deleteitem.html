@@ -14,7 +14,7 @@
     </div>
     <form method="post">
       <input type="submit" class="btn btn-warning" name="submit" value="Delete Item">
-      <input type="submit" class="btn" name="cancel" value="Cancel">
+      <p class="btn btn-secondary"><a href={{ url_for('items_api.viewItem', category_id=item.category.id, item_id=item.id) }}>Cancel</a></p>
     </form>
   </article>
 {% endblock %}

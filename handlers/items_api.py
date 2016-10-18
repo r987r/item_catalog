@@ -43,7 +43,7 @@ def newItem(category_id):
         session.commit()
         return redirect(url_for('category_api.ListItems', category_id=category_id))
     else:
-        return render_template('newitem.html')
+        return render_template('newitem.html', category=category)
 
 @items_api.route('/category/<int:category_id>/<int:item_id>/edit/', methods=['GET','POST'])
 def editItem(category_id, item_id):
