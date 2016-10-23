@@ -5,6 +5,8 @@ from flask import Flask, Blueprint, request, redirect, url_for
 from database import session, Item, User, Category
 from users_api import validUserPermission
 from base import render_template
+from forms import ItemNewForm, ItemEditForm
+
 
 items_api = Blueprint('items_api', __name__)
 
@@ -32,34 +34,36 @@ def newItem(category_id):
     category = session.query(Category).get(category_id)
     if not validUserPermission(category.user.id):
         return redirect(url_for('category_api.ListItems', category_id=category_id))
-    if request.method == 'POST':
-        newItem = Item(name = request.form['item_name'],
-                        description = request.form['description'],
+    form = ItemNewForm(request.form)
+    if request.method == 'POST' and form.validate():
+        newItem = Item(name = form.item_name.data,
+                        description = form.description.data,
                         img_url = "",
                         category_id=category_id)
         session.add(newItem)
         session.flush() # Needed to get id for the new item.
-        newItem.img_url = handleImage(request.form['img_url'], category_id, newItem.id)
+        newItem.img_url = handleImage(form.img_url.data, category_id, newItem.id)
         session.commit()
         return redirect(url_for('category_api.ListItems', category_id=category_id))
     else:
-        return render_template('newitem.html', category=category)
+        return render_template('newitem.html', category=category, form=form)
 
 @items_api.route('/category/<int:category_id>/<int:item_id>/edit/', methods=['GET','POST'])
 def editItem(category_id, item_id):
     editItem = session.query(Item).get(item_id)
     if not validUserPermission(editItem.category.user.id):
         return redirect(url_for('items_api.viewItem', category_id=category_id, item_id=item_id))
-    if request.method == 'POST':
-        editItem.name = request.form['item_name']
-        editItem.description = request.form['description']
-        img_url = request.form['img_url']
+    form = ItemEditForm(request.form, obj=editItem)
+    if request.method == 'POST' and form.validate():
+        editItem.name = form.name.data
+        editItem.description = form.description.data
+        img_url = form.img_url.data
         if(img_url != ""):
            editItem.img_url = handleImage(img_url, category_id, item_id)
         session.commit()
         return redirect(url_for('items_api.viewItem', category_id=category_id, item_id=item_id))
     else:
-        return render_template('edititem.html', item=editItem)
+        return render_template('edititem.html', item=editItem, form=form)
 
 @items_api.route('/category/<int:category_id>/<int:item_id>/')
 @items_api.route('/category/<int:category_id>/<int:item_id>/view/')

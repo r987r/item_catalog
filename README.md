@@ -4,6 +4,9 @@ Installion
 	Follow directions here: https://udacity.atlassian.net/wiki/display/BENDH/Vagrant+VM+Installation
 	Clone this fullstack-nanodegree-vm instead of one refered to there.
 
+2. Install WTForms on virtual machine
+	pip install WTForms
+
 Running
 ---
 1. Run python script:
@@ -25,10 +28,8 @@ Cleaning Database
 TODO
 ---
 1) Look if user uploads bad image or if its above a max file size
-1) Remove images when doing delete Items
+2) Remove images when doing delete Items
 2) Find a way to customize json object name
-4) Look back at styling for invalid inputs on new and edits
-	Possibly use flash messages
 6) Fix JSON for all
 8) Format everything better
 9)

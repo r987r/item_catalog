@@ -1,3 +1,4 @@
+{% from "_formhelpers.html" import render_field %}
 {% extends "base.html" %}
 
 {% block content %}
@@ -9,21 +10,21 @@
     </div>
     <form method="post">
       <div class="form-group row">
-        <label for="item_name" class="col-sm-3 col-form-label">Name</label>
+        <label for="name" class="col-sm-3 col-form-label">Name</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" id="item_name" name="item_name" value="{{item.name}}">
+          {{ render_field(form.name) }}          
         </div>
       </div>
       <div class="form-group row">
         <label for="description" class="col-sm-3 col-form-label">Description</label>
         <div class="col-sm-9">
-          <textarea class="form_control" id="description" name="description" rows=4>{{item.description}}</textarea>
+          {{ render_field(form.description) }}          
         </div>
       </div> 
       <div class="form-group row">
         <label for="photo_url" class="col-sm-3 col-form-label">New Photo URL</label>
         <div class="col-sm-9">
-          <input type="url" class="form-control" id="img_url" name="img_url">
+          {{ render_field(form.img_url) }}          
           <small id="photo_url_help" class="text-muted">Leave blank to keep old image</small>
         </div>
       </div>
