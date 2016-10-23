@@ -53,13 +53,16 @@ def editItem(category_id, item_id):
     editItem = session.query(Item).get(item_id)
     if not validUserPermission(editItem.category.user.id):
         return redirect(url_for('items_api.viewItem', category_id=category_id, item_id=item_id))
+    img_url = editItem.img_url
+    editItem.img_url = ""  # Clear img_url for display in form
     form = ItemEditForm(request.form, obj=editItem)
+    editItem.img_url = img_url  # HACK TODO fix this, seems to autocommit at end of scope
     if request.method == 'POST' and form.validate():
         editItem.name = form.name.data
         editItem.description = form.description.data
-        img_url = form.img_url.data
-        if(img_url != ""):
-           editItem.img_url = handleImage(img_url, category_id, item_id)
+        if(form.img_url.data != ""):
+           img_url = handleImage(form.img_url.data, category_id, item_id)
+        editItem.img_url = img_url
         session.commit()
         return redirect(url_for('items_api.viewItem', category_id=category_id, item_id=item_id))
     else:
@@ -71,8 +74,6 @@ def viewItem(category_id, item_id):
     viewItem = session.query(Item).get(item_id)
     return render_template('viewitem.html', item=viewItem,
                             usersItem = validUserPermission(viewItem.category.user.id))
-
-
 
 @items_api.route('/category/<int:category_id>/<int:item_id>/delete/', methods=['GET','POST'])
 def deleteItem(category_id, item_id):

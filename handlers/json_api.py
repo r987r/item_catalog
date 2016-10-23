@@ -6,6 +6,18 @@ import json
 json_api = Blueprint('json_api', __name__)
 
 
+@json_api.route('/JSON')
+def allJSON():
+    allCats = []
+    categories = session.query(Category).all()
+    for i in categories:
+        items = session.query(Item).filter_by(category_id=i.id)
+        item_dic = [j.serialize for j in items]
+        cat = i.serialize
+        cat['items'] = [j.serialize for j in items]
+        allCats.append(cat)
+    return jsonify(All=allCats)
+
 @json_api.route('/category/JSON')
 def categoryJSON():
     categories = session.query(Category).all()

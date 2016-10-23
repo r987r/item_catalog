@@ -29,8 +29,6 @@ TODO
 ---
 1) Look if user uploads bad image or if its above a max file size
 2) Remove images when doing delete Items
-2) Find a way to customize json object name
-6) Fix JSON for all
-8) Format everything better
-9)
+3) Format everything better
+4) HACK on edit item, see why changing img_url screws up
 
