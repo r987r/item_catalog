@@ -36,7 +36,7 @@ def newItem(category_id):
         return redirect(url_for('category_api.ListItems', category_id=category_id))
     form = ItemNewForm(request.form)
     if request.method == 'POST' and form.validate():
-        newItem = Item(name = form.item_name.data,
+        newItem = Item(name = form.name.data,
                         description = form.description.data,
                         img_url = "",
                         category_id=category_id)

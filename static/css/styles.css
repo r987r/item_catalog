@@ -30,23 +30,8 @@ body {
     background: #7d97ad;
 }
 
-.featured-work {
-    color: #7d97ad;
-}
-
-@media (min-width: 768px) {
-  /* makes images of different heights occupt same height in column. */
-  .work-image {
-    position: relative;
-    overflow: hidden;
-    padding-bottom: 90%;
-  }
-  .work-image img {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-  }
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }

@@ -29,6 +29,5 @@ TODO
 ---
 1) Look if user uploads bad image or if its above a max file size
 2) Remove images when doing delete Items
-3) Format everything better
-4) HACK on edit item, see why changing img_url screws up
+3) HACK on edit item, see why changing img_url screws up
 

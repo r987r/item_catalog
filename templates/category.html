@@ -17,7 +17,7 @@
   <section class="row">
     {% for item in item_row %}  
       <article class="col-sm-6">
-        <div class="work-image">
+        <div class="img-thumbnail">
           {% set img_url = url_for('static', filename = item.img_url) %}
           <img class="img-responsive center-block" src="{{img_url}}" alt="{{item.name}}">
         </div>
